@@ -11,8 +11,10 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Download and install Foundry
-      - run: curl -L https://foundry.paradigm.xyz | bash
-      - run: foundryup
+      run: curl -L https://foundry.paradigm.xyz | bash
+
+    - name: Install Foundry
+      run: foundryup
 
     - name: Run forge gas tests
       run: forge test --gas-report
