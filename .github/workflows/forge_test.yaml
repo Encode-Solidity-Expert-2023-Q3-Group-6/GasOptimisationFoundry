@@ -18,8 +18,13 @@ jobs:
     - name: List directory content
       run: ls -la
 
-    - name: Check SOLC version
-      run: solc --version
+    - name: Install solc
+      run: |
+        wget https://github.com/ethereum/solidity/releases/download/v0.8.0/solc-static-linux
+        chmod +x ./solc-static-linux
+        sudo mv solc-static-linux /usr/bin/solc
+        solc --version
+
       
     - name: Check forge version
       run: forge --version
