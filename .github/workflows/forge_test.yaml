@@ -13,6 +13,9 @@ jobs:
     - name: Download Foundry
       run: curl -L https://foundry.paradigm.xyz | bash
 
+    - name: open new shell
+      run: bash
+
     - name: Print out PATH
       run: echo $PATH
 
