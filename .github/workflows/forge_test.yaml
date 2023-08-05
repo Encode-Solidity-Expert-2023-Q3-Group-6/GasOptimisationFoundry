@@ -10,8 +10,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Download and install Foundry
+    - name: Download Foundry
       run: curl -L https://foundry.paradigm.xyz | bash
+
+    - name: Print out PATH
+      run: echo $PATH
+
+    - name: Check where foundryup is located
+      run: which foundryup || echo "foundryup not found"
 
     - name: Install Foundry
       run: foundryup
