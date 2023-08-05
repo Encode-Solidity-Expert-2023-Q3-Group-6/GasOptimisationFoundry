@@ -12,5 +12,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Print working directory
+      run: pwd
+
+    - name: List directory content
+      run: ls -la
+
+    - name: Check SOLC version
+      run: solc --version
+      
+    - name: Check forge version
+      run: forge --version
+
+
     - name: Run forge gas tests
       run: forge test --gas-report
+
+    
