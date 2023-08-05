@@ -193,7 +193,7 @@ contract GasContract is Ownable, Constants {
         address _recipient,
         uint256 _amount,
         string calldata _name
-    ) public returns (bool status_) {
+    ) public {
         require(
             balances[msg.sender] >= _amount,
             "Gas Contract - Transfer function - Sender has insufficient Balance"
@@ -219,8 +219,6 @@ contract GasContract is Ownable, Constants {
         payments[msg.sender].push(payment);
 
         emit Transfer(_recipient, _amount);
-
-        return true;
     }
 
     function updatePayment(
