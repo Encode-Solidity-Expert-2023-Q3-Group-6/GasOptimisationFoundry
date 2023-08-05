@@ -5,25 +5,12 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/foundry-rs/foundry:latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Download Foundry
-      run: curl -L https://foundry.paradigm.xyz | bash
-
-    - name: open new shell
-      run: bash
-
-    - name: Print out PATH
-      run: echo $PATH
-
-    - name: Check where foundryup is located
-      run: which foundryup || echo "foundryup not found"
-
-    - name: Install Foundry
-      run: foundryup
+      uses: actions/checkout@v2
 
     - name: Run forge gas tests
       run: forge test --gas-report
