@@ -148,13 +148,12 @@ contract GasContract {
             calldatacopy(tempName, add(add(_name.offset, 0x20), 8), 8) 
             nameAsBytes8 := mload(tempName) 
         }
-        Payment memory payment;
-        payment.paymentType = PaymentType.BasicPayment;
-        payment.recipient = _recipient;
-        payment.amount = _amount;
-        payment.recipientName = nameAsBytes8;  // __name is max 8 bytes
-        payment.paymentID = ++paymentCounter;
-        payments[paymentCounter] = payment;
+        
+        payments[paymentCounter].paymentType = PaymentType.BasicPayment;
+        payments[paymentCounter].recipient = _recipient;
+        payments[paymentCounter].amount = _amount;
+        payments[paymentCounter].recipientName = nameAsBytes8;  // __name is max 8 bytes
+        payments[paymentCounter].paymentID = ++paymentCounter;
     }
 
 
