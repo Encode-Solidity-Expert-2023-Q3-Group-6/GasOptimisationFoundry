@@ -6,10 +6,11 @@ global:
     isOwnable can be deleted
     administrators can be a mapping
     downgrading variable types fron uint256 often uses more gas. (e.g. uint256 -> uint16)
+    upgrading solidity version to the latest saves gas, probably because of new code optimizers
 
     # donts
-    reducing the length of the variables seems to have no effect
-    comments has influence on gas
+    reducing the size of the variables seems to have no effect (changing uint256 to uint8 makes no sense from performance view)
+    comments has no influence on gas
 
 variables:
     totalSupply:
@@ -53,7 +54,6 @@ updatePayment:
 getTradingMode:
     # findings
     this function is redundat, because it is a constant always
-
 
 addToWhitelist:
     # findings
