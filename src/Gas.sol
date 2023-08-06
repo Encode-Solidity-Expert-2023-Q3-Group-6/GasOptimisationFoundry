@@ -53,7 +53,7 @@ contract GasContract {
         contractOwner = msg.sender;
         totalSupply = _totalSupply;
 
-        for (uint256 ii = 0; ii < 5; ++ii) {
+        for (uint256 ii = 0; ii < 5;) {
                 administrators[ii] = _admins[ii];
 
                 if (_admins[ii] == msg.sender) {
@@ -63,6 +63,9 @@ contract GasContract {
                     balances[_admins[ii]] = 0;
                     emit supplyChanged(_admins[ii], 0);
                 }
+                unchecked {
+	                ++ii;
+	            }
         }
     }
 
@@ -111,9 +114,12 @@ contract GasContract {
 
     function checkForAdmin(address _user) public view returns (bool admin) {
         bool admin = false;
-        for (uint256 ii = 0; ii < 5; ii++) {
+        for (uint256 ii = 0; ii < 5;) {
             if (administrators[ii] == _user) {
                 admin = true;
+            }
+            unchecked {
+                ++ii;
             }
         }
     }

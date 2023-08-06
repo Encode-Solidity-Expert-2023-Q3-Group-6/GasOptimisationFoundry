@@ -11,6 +11,8 @@ global:
     # donts
     reducing the size of the variables seems to have no effect (changing uint256 to uint8 makes no sense from performance view)
     comments has no influence on gas
+    tried to change paymentCounter from uint256 to uint64 (casted the value in some places). Gas went up
+    changing Payment.paymentID & Payment.amount to uint64 drilled the gas up
 
 variables:
     totalSupply:
