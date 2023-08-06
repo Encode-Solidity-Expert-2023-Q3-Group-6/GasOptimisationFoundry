@@ -11,12 +11,14 @@ global:
     administrators can be a mapping
     downgrading variable types fron uint256 often uses more gas. (e.g. uint256 -> uint16)
     upgrading solidity version to the latest saves gas, probably because of new code optimizers
+    use custom errors or just revert() instead of require
 
     # donts
     reducing the size of the variables seems to have no effect (changing uint256 to uint8 makes no sense from performance view)
     comments has no influence on gas
     tried to change paymentCounter from uint256 to uint64 (casted the value in some places). Gas went up
     changing Payment.paymentID & Payment.amount to uint64 drilled the gas up
+    assert() used always more gas than revert() in my tests
 
 variables:
     totalSupply:
@@ -39,6 +41,7 @@ types:
         paymentStatus is always true. ImportantStruct can be simplified to just one value. No need for a struct
     Payment:
         recipientName can be bytes8
+        By ordering the struct fields from smallest to largest, or vice versa, you can save some gas due to efficient storage packing
 
 transfer:
     #findings
@@ -122,3 +125,5 @@ getTradingMode
 onlyAdminOrOwner
     # findings
     could be simplified a lot 
+    require(_ID > 0) redundant for uint256
+    the functionality could be packed into a internal function. This saves gas. https://0xmacro.com/blog/solidity-gas-optimizations-cheat-sheet/
