@@ -1,3 +1,7 @@
+ambiguous possible changes:
+    checkForAdmin:
+        an early return can be put into the loop. It will drive down execution cost, but up the deployment costs
+
 
 global:
     # findings
