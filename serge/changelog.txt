@@ -47,7 +47,7 @@ addHistory:
 updatePayment:
     # findings
     delete require(  _user != address(0)). A user cant have a zero address
-    payments maybe can be change to mapping of mappings  somehow
+    payments can be change to a mapping 
     tradingMode can be deelted
 
 getTradingMode:
@@ -103,6 +103,7 @@ getPaymentHistory:
 getPayments:
     # findings
     require can be deleted 
+    you dont need this function to pass the tests
 
     # donts
 

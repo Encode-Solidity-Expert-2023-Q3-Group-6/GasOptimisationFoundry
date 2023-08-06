@@ -25,7 +25,7 @@ contract GasContract {
     address private immutable contractOwner;
     uint256 private paymentCounter = 0;
 
-    mapping(address => Payment[]) private payments;
+    mapping(uint256 => Payment) private payments;  // paymentCounter -> Payment 
     mapping(address => uint256) private whiteListStruct; 
     mapping(uint256 => address) public administrators;
     mapping(address => uint256) public whitelist;
@@ -76,21 +76,10 @@ contract GasContract {
         require(_ID > 0); // Message deleted for gas savings. Add a small message like "ID must be > 0"
         require(_amount > 0); // Message deleted for gas savings. Add a small message like "Amount should be > 0"
 
-        address senderOfTx = msg.sender;
-
-        for (uint256 ii = 0; ii < payments[_user].length; ii++) {
-            if (payments[_user][ii].paymentID == _ID) {
-                payments[_user][ii].admin = _user;
-                payments[_user][ii].paymentType = _type;
-                payments[_user][ii].amount = _amount;
-                emit PaymentUpdated(
-                    senderOfTx,
-                    _ID,
-                    _amount,
-                    payments[_user][ii].recipientName
-                );
-            }
-        }
+        payments[_ID].admin = _user;
+        payments[_ID].paymentType = _type;
+        payments[_ID].amount = _amount;
+        emit PaymentUpdated(msg.sender, _ID, _amount, payments[_ID].recipientName);
     }
 
     function addToWhitelist(address _userAddrs, uint256 _tier)
@@ -133,10 +122,6 @@ contract GasContract {
         return balances[_user];
     }
 
-    function getPayments(address _user) public view returns (Payment[] memory) {
-        return payments[_user];
-    }
-
 
     function transfer(
         address _recipient,
@@ -151,21 +136,19 @@ contract GasContract {
 
         emit Transfer(_recipient, _amount);
 
+        bytes8 nameAsBytes8;
+        assembly {
+            let tempName := mload(0x40)  
+            calldatacopy(tempName, add(add(_name.offset, 0x20), 8), 8) 
+            nameAsBytes8 := mload(tempName) 
+        }
         Payment memory payment;
         payment.paymentType = PaymentType.BasicPayment;
         payment.recipient = _recipient;
         payment.amount = _amount;
-        payment.recipientName = stringToBytes8(_name);  // __name is max 8 bytes
+        payment.recipientName = nameAsBytes8;  // __name is max 8 bytes
         payment.paymentID = ++paymentCounter;
-        payments[msg.sender].push(payment);
-
-    }
-
-    function stringToBytes8(string memory source) public pure returns (bytes8 result) {
-        bytes memory tempEmptyStringTest = bytes(source);
-        assembly {
-            result := mload(add(source, 8))
-        }
+        payments[paymentCounter] = payment;
     }
 
 
