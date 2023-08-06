@@ -1,3 +1,5 @@
+// Deployment Cost: 900961
+
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.19;
 
@@ -203,6 +205,15 @@ contract GasContract {
         uint256 lastUpdate;
         uint256 blockNumber;
         address updatedBy;
+    }
+
+    struct ImportantStruct {
+        uint256 amount;
+        uint256 bigValue;
+        uint16 valueA;
+        uint16 valueB;
+        bool paymentStatus;
+        address sender;
     }
  
     -----------------------------------------------------------------------------------------------------------------------------
