@@ -29,3 +29,63 @@ Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 460.66ms
 | whitelist                        | 530             | 530   | 530    | 530   | 2       |
 
 
+Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 429.37ms
+| src/Gas.sol:GasContract contract |                 |       |        |       |         |
+|----------------------------------|-----------------|-------|--------|-------|---------|
+| Deployment Cost                  | Deployment Size |       |        |       |         |
+| 419490                           | 2235            |       |        |       |         |
+| Function Name                    | min             | avg   | median | max   | # calls |
+| addToWhitelist                   | 11763           | 28639 | 35380  | 35390 | 7       |
+| administrators                   | 2543            | 2543  | 2543   | 2543  | 5       |
+| balanceOf                        | 2593            | 2593  | 2593   | 2593  | 3       |
+| balances                         | 531             | 1031  | 531    | 2531  | 4       |
+| getPaymentStatus                 | 579             | 579   | 579    | 579   | 1       |
+| transfer                         | 26063           | 26063 | 26063  | 26063 | 3       |
+| whiteTransfer                    | 44799           | 46132 | 46799  | 46799 | 3       |
+| whitelist                        | 530             | 530   | 530    | 530   | 2       |
+
+Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 424.15ms
+| src/Gas.sol:GasContract contract |                 |       |        |       |         |
+|----------------------------------|-----------------|-------|--------|-------|---------|
+| Deployment Cost                  | Deployment Size |       |        |       |         |
+| 367953                           | 1816            |       |        |       |         |
+| Function Name                    | min             | avg   | median | max   | # calls |
+| addToWhitelist                   | 649             | 17475 | 24199  | 24211 | 7       |
+| administrators                   | 2508            | 2508  | 2508   | 2508  | 5       |
+| balanceOf                        | 2487            | 2487  | 2487   | 2487  | 3       |
+| balances                         | 443             | 943   | 443    | 2443  | 4       |
+| getPaymentStatus                 | 527             | 527   | 527    | 527   | 1       |
+| transfer                         | 25689           | 25689 | 25689  | 25689 | 3       |
+| whiteTransfer                    | 44782           | 46115 | 46782  | 46782 | 3       |
+| whitelist                        | 531             | 531   | 531    | 531   | 2       |
+
+Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 359.94ms
+| src/Gas.sol:GasContract contract |                 |       |        |       |         |
+|----------------------------------|-----------------|-------|--------|-------|---------|
+| Deployment Cost                  | Deployment Size |       |        |       |         |
+| 358511                           | 1792            |       |        |       |         |
+| Function Name                    | min             | avg   | median | max   | # calls |
+| addToWhitelist                   | 649             | 17475 | 24199  | 24211 | 7       |
+| administrators                   | 2508            | 2508  | 2508   | 2508  | 5       |
+| balanceOf                        | 2487            | 2487  | 2487   | 2487  | 3       |
+| balances                         | 443             | 943   | 443    | 2443  | 4       |
+| getPaymentStatus                 | 527             | 527   | 527    | 527   | 1       |
+| transfer                         | 25689           | 25689 | 25689  | 25689 | 3       |
+| whiteTransfer                    | 44782           | 46115 | 46782  | 46782 | 3       |
+| whitelist                        | 531             | 531   | 531    | 531   | 2       |
+
+Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 365.92ms
+| src/Gas.sol:GasContract contract |                 |       |        |       |         |
+|----------------------------------|-----------------|-------|--------|-------|---------|
+| Deployment Cost                  | Deployment Size |       |        |       |         |
+| 358486                           | 1782            |       |        |       |         |
+| Function Name                    | min             | avg   | median | max   | # calls |
+| addToWhitelist                   | 649             | 17477 | 24199  | 24211 | 7       |
+| administrators                   | 2508            | 2508  | 2508   | 2508  | 5       |
+| balanceOf                        | 2487            | 2487  | 2487   | 2487  | 3       |
+| balances                         | 443             | 943   | 443    | 2443  | 4       |
+| getPaymentStatus                 | 527             | 527   | 527    | 527   | 1       |
+| transfer                         | 25689           | 25689 | 25689  | 25689 | 3       |
+| whiteTransfer                    | 44782           | 46115 | 46782  | 46782 | 3       |
+| whitelist                        | 531             | 531   | 531    | 531   | 2       |
+

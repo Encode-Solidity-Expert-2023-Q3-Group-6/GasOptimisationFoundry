@@ -12,6 +12,7 @@ global:
     downgrading variable types fron uint256 often uses more gas. (e.g. uint256 -> uint16)
     upgrading solidity version to the latest saves gas, probably because of new code optimizers
     use custom errors or just revert() instead of require
+    removing modifiers and replacing them with code does not necessary saves gas
 
     # donts
     reducing the size of the variables seems to have no effect (changing uint256 to uint8 makes no sense from performance view)

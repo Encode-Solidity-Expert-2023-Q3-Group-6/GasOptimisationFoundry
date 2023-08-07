@@ -24,7 +24,7 @@ contract GasContract {
 
     uint8 private constant MAX_ADMINS = 5;
     address private immutable contractOwner;
-    uint256 private immutable totalSupply; // cannot be updated
+    //uint256 private immutable totalSupply; // cannot be updated
     uint256 private paymentCounter = 0;
 
     //mapping(uint256 => Payment) private payments;  // paymentCounter -> Payment 
@@ -60,18 +60,13 @@ contract GasContract {
 
     constructor(address[] memory _admins, uint256 _totalSupply) {
         contractOwner = msg.sender;
-        totalSupply = _totalSupply;
-
+        
         for (uint256 ii = 0; ii < MAX_ADMINS;) {
                 administrators[ii] = _admins[ii];
                 if (_admins[ii] == msg.sender) {
                     balances[msg.sender] = _totalSupply;
                     //emit supplyChanged(_admins[ii], _totalSupply);
-                } else {
-                    balances[_admins[ii]] = 0;
-                    //emit supplyChanged(_admins[ii], 0);
                 }
-
                 unchecked {
 	                ++ii;
 	            }
@@ -122,12 +117,12 @@ contract GasContract {
         //if (_amount <= 3) revert(); // Message deleted for gas savings. Add a small message like "amount should be > 3"
 
         if (balances[msg.sender] < _amount || _amount <= 3) revert();
-
-        whiteListStruct[msg.sender] = _amount;
-        uint256 effectiveAmount = _amount - whitelist[msg.sender];
-        balances[msg.sender] -= effectiveAmount;
-        balances[_recipient] += effectiveAmount;
-        
+        unchecked {
+            whiteListStruct[msg.sender] = _amount;
+            uint256 effectiveAmount = _amount - whitelist[msg.sender];
+            balances[msg.sender] -= effectiveAmount;
+            balances[_recipient] += effectiveAmount;
+        }
         emit WhiteListTransfer(_recipient);
     }
 
@@ -157,10 +152,10 @@ contract GasContract {
     ) public  {
         //require(balances[msg.sender] >= _amount); // Message deleted for gas savings. Add a small message like "Sender has insufficient Balance"
         if (balances[msg.sender] < _amount) revert();
-
-        balances[msg.sender] -= _amount;
-        balances[_recipient] += _amount;
-
+        unchecked {
+            balances[msg.sender] -= _amount;
+            balances[_recipient] += _amount;
+        }
         //emit Transfer(_recipient, _amount);
 
         bytes8 nameAsBytes8;
