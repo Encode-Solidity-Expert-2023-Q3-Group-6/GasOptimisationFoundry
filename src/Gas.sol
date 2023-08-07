@@ -1,4 +1,4 @@
-// Deployment Cost: 900961
+// Deployment Cost: 565982
 
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.19;
