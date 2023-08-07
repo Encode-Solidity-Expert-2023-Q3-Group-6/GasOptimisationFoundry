@@ -89,3 +89,18 @@ Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 365.92ms
 | whiteTransfer                    | 44782           | 46115 | 46782  | 46782 | 3       |
 | whitelist                        | 531             | 531   | 531    | 531   | 2       |
 
+Test result: ok. 8 passed; 0 failed; 0 skipped; finished in 380.58ms
+| src/Gas.sol:GasContract contract |                 |       |        |       |         |
+|----------------------------------|-----------------|-------|--------|-------|---------|
+| Deployment Cost                  | Deployment Size |       |        |       |         |
+| 355480                           | 1767            |       |        |       |         |
+| Function Name                    | min             | avg   | median | max   | # calls |
+| addToWhitelist                   | 649             | 17475 | 24199  | 24211 | 7       |
+| administrators                   | 2508            | 2508  | 2508   | 2508  | 5       |
+| balanceOf                        | 2487            | 2487  | 2487   | 2487  | 3       |
+| balances                         | 443             | 943   | 443    | 2443  | 4       |
+| getPaymentStatus                 | 527             | 527   | 527    | 527   | 1       |
+| transfer                         | 25689           | 25689 | 25689  | 25689 | 3       |
+| whiteTransfer                    | 44609           | 45942 | 46609  | 46609 | 3       |
+| whitelist                        | 531             | 531   | 531    | 531   | 2       |
+
