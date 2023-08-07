@@ -1,0 +1,130 @@
+ambiguous possible changes:
+    checkForAdmin:
+        an early return can be put into the loop. It will drive down execution cost, but up the deployment costs
+
+
+global:
+    # findings
+    require error message can be deleted completely for gas optimization, is not good practice... In production the error mesasge could be shorter
+    Constants can be deleted
+    isOwnable can be deleted
+    administrators can be a mapping
+    downgrading variable types fron uint256 often uses more gas. (e.g. uint256 -> uint16)
+    upgrading solidity version to the latest saves gas, probably because of new code optimizers
+    use custom errors or just revert() instead of require
+    removing modifiers and replacing them with code does not necessary saves gas
+
+    # donts
+    reducing the size of the variables seems to have no effect (changing uint256 to uint8 makes no sense from performance view)
+    comments has no influence on gas
+    tried to change paymentCounter from uint256 to uint64 (casted the value in some places). Gas went up
+    changing Payment.paymentID & Payment.amount to uint64 drilled the gas up
+    assert() used always more gas than revert() in my tests
+
+variables:
+    totalSupply:
+        dont need the "=0" because it is initialized in constructor
+        can be "immutable"
+    contractOwner:
+        can be immutable
+    tradePercent:
+        can be a contant
+        and is not needed anyways
+    tradeMode unused
+    paymentCounter, contractOwner, totalSupply, payments, whiteListStruct can be private
+
+types:
+    # findings
+    History is not used. deleted
+    payment.adminUpdated is not needed 
+    ImportantStruct:
+        all except amount and paymentStatus can be deleted
+        paymentStatus is always true. ImportantStruct can be simplified to just one value. No need for a struct
+    Payment:
+        recipientName can be bytes8
+        By ordering the struct fields from smallest to largest, or vice versa, you can save some gas due to efficient storage packing
+
+transfer:
+    #findings
+    require(bytes(_name).length < 9) is not needed
+    payment.admin = address(0); is redundant because address(0) is the default anyways
+    tradePercent is not needed
+    return can be deleted because it is always returning true
+
+addHistory:
+    # findings
+    seems to irrelevant for the tests, deleting in additin to the History struct
+
+updatePayment:
+    # findings
+    delete require(  _user != address(0)). A user cant have a zero address
+    payments can be change to a mapping 
+    tradingMode can be deelted
+
+getTradingMode:
+    # findings
+    this function is redundat, because it is a constant always
+
+addToWhitelist:
+    # findings
+    wasLastOdd can be boolean
+    wasLastAddedOdd same
+    do we actually need wasLastOdd and wasLastAddedOdd? Seems to do nothing, can be deleted.
+    the tier list is effectively 3 values
+    _tier >= 3 saves gas in comparison with _tier > 3
+    require error message can be deleted completely for gas optimization, is not good practice... In production the error mesasge could be shorter
+
+    # donts
+    changing _tier can be uint8 breaks the tests
+
+whiteTransfer:
+    # findings
+
+    # donts
+
+balanceOf:
+    # findings
+
+    # donts
+    removing the unnecessary variable seems to have no effect
+
+constructor:
+    # findings
+    twice same if condition
+    if (_admins[ii] != address(0)) can be deleted, because adress(0) is the default for address array anyways
+    ++ii is better than ii++
+    administrators can be changed to a mapping to save costs (change checkForAdmin as well)
+
+checkForAdmin:
+    # findings
+    can change signature of the return to  "returns (bool admin)". and delete the return but this does not change the gas 
+
+    # donts
+    early return in loop drives up the gas 
+    remove unnecessary variable bool admin = false; does not work...
+
+
+getPaymentHistory:
+    # findings
+    can be deleted completely, because paymentHistory is public
+
+    # donts
+
+getPayments:
+    # findings
+    require can be deleted 
+    you dont need this function to pass the tests
+
+    # donts
+
+getTradingMode
+    # findings
+    can be simplified 
+
+    # donts
+
+onlyAdminOrOwner
+    # findings
+    could be simplified a lot 
+    require(_ID > 0) redundant for uint256
+    the functionality could be packed into a internal function. This saves gas. https://0xmacro.com/blog/solidity-gas-optimizations-cheat-sheet/
