@@ -33,6 +33,9 @@ variables:
     tradeMode unused
     paymentCounter, contractOwner, totalSupply, payments, whiteListStruct can be private
 
+checkIfWhiteListed:
+    not needed
+
 types:
     # findings
     History is not used. deleted
