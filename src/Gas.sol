@@ -11,7 +11,8 @@ contract GasContract {
         Dividend,
         GroupPayment
     }
-
+    
+    /*
     struct Payment {
         bytes8 recipientName; // max 8 characters
         address recipient;
@@ -19,26 +20,25 @@ contract GasContract {
         uint256 paymentID;
         uint256 amount;
         PaymentType paymentType;
-    }
+    }*/
 
     uint8 private constant MAX_ADMINS = 5;
-    uint256 private immutable totalSupply; // cannot be updated
     address private immutable contractOwner;
+    uint256 private immutable totalSupply; // cannot be updated
     uint256 private paymentCounter = 0;
 
-    mapping(uint256 => Payment) private payments;  // paymentCounter -> Payment 
+    //mapping(uint256 => Payment) private payments;  // paymentCounter -> Payment 
     mapping(address => uint256) private whiteListStruct; 
     mapping(uint256 => address) public administrators;
     mapping(address => uint256) public whitelist;
     mapping(address => uint256) public balances;
 
     event AddedToWhitelist(address userAddress, uint256 tier);
-    event supplyChanged(address indexed, uint256 indexed);
-    event Transfer(address recipient, uint256 amount);
-    event PaymentUpdated(address admin, uint256 ID, uint256 amount, bytes8 recipient);
+    //event supplyChanged(address indexed, uint256 indexed);
+    //event Transfer(address recipient, uint256 amount);
+    //event PaymentUpdated(address admin, uint256 ID, uint256 amount, bytes8 recipient);
     event WhiteListTransfer(address indexed);
     
-    // error Err();
 
     modifier onlyAdminOrOwner() {
         internalOnlyAdminOrOwner();
@@ -66,10 +66,10 @@ contract GasContract {
                 administrators[ii] = _admins[ii];
                 if (_admins[ii] == msg.sender) {
                     balances[msg.sender] = _totalSupply;
-                    emit supplyChanged(_admins[ii], _totalSupply);
+                    //emit supplyChanged(_admins[ii], _totalSupply);
                 } else {
                     balances[_admins[ii]] = 0;
-                    emit supplyChanged(_admins[ii], 0);
+                    //emit supplyChanged(_admins[ii], 0);
                 }
 
                 unchecked {
@@ -78,7 +78,7 @@ contract GasContract {
         }
     }
 
-
+    /*
     function updatePayment(
         address _user,
         uint256 _ID,
@@ -88,12 +88,13 @@ contract GasContract {
         if (_amount <= 0) revert(); // Message deleted for gas savings. Add a small message like "Amount should be > 0" 
         //assert(_amount > 0);
 
-        Payment storage paymentToUpdate = payments[_ID];
-        paymentToUpdate.admin = _user;
-        paymentToUpdate.paymentType = _type;
-        paymentToUpdate.amount = _amount;
-        emit PaymentUpdated(msg.sender, _ID, _amount, paymentToUpdate.recipientName);
+        //Payment storage paymentToUpdate = payments[_ID];
+        //paymentToUpdate.admin = _user;
+        //paymentToUpdate.paymentType = _type;
+        //paymentToUpdate.amount = _amount;
+        //emit PaymentUpdated(msg.sender, _ID, _amount, paymentToUpdate.recipientName);
     }
+    */
 
     function addToWhitelist(address _userAddrs, uint256 _tier)
         public
@@ -160,7 +161,7 @@ contract GasContract {
         balances[msg.sender] -= _amount;
         balances[_recipient] += _amount;
 
-        emit Transfer(_recipient, _amount);
+        //emit Transfer(_recipient, _amount);
 
         bytes8 nameAsBytes8;
         assembly {
@@ -169,11 +170,11 @@ contract GasContract {
             nameAsBytes8 := mload(tempName) 
         }
 
-        payments[paymentCounter].paymentType = PaymentType.BasicPayment;
-        payments[paymentCounter].recipient = _recipient;
-        payments[paymentCounter].amount = _amount;
-        payments[paymentCounter].recipientName = nameAsBytes8;  // __name is max 8 bytes
-        payments[paymentCounter].paymentID = paymentCounter++;
+        //payments[paymentCounter].paymentType = PaymentType.BasicPayment;
+        //payments[paymentCounter].recipient = _recipient;
+        //payments[paymentCounter].amount = _amount;
+        //payments[paymentCounter].recipientName = nameAsBytes8;  // __name is max 8 bytes
+        //payments[paymentCounter].paymentID = paymentCounter++;
     }
 
 
