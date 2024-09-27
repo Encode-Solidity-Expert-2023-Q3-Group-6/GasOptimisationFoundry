@@ -1,0 +1,36 @@
+name: Forge Gas Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/foundry-rs/foundry:latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Print working directory
+      run: pwd
+
+    - name: List directory content
+      run: ls -la
+
+    - name: Install solc
+      run: |
+        wget https://github.com/ethereum/solidity/releases/download/v0.8.0/solc-static-linux
+        chmod +x ./solc-static-linux
+        mv solc-static-linux /usr/bin/solc
+        solc --version
+
+      
+    - name: Check forge version
+      run: forge --version
+
+
+    - name: Run forge gas tests
+      run: forge test --gas-report
+
+    
